@@ -23,6 +23,13 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Verify build output
+        run: |
+          if [ ! -d "./dist" ] || [ -z "$(ls -A ./dist)" ]; then
+            echo "Build output is missing or empty!"
+            exit 1
+          fi
+
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
         with:
