@@ -9,7 +9,7 @@ function App() {
     const containerRef = useRef(null);
 
     useEffect(() => {
-        const instanceURL = "https://verisync.awsapps.com/connect/ccp-v2/";
+        const instanceURL = "https://verisync.my.connect.aws/connect/ccp-v2/";
         
         let ccp;
         if (containerRef.current) {
