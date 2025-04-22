@@ -46,10 +46,14 @@ function App() {
             });
 
 
-            // Listen for contact events
-            connect.contact(contact => {
-                contact.onAccepted(() => {
-                    console.log("Call accepted");
+            // Listen for agent events
+            connect.agent(agent => {
+                agent.onRoutable(() => {
+                    console.log("Agent is routable. Ready to handle a new contact.");
+                });
+
+                agent.onPending(() => {
+                    console.log("Call button pressed! Execute your logic here.");
                     handleCallButtonPressed();
                 });
             });
