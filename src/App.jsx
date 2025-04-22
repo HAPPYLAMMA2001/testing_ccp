@@ -1,11 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import "amazon-connect-streams";
 import './App.css'
 
 function App() {
-    const [count, setCount] = useState(0);
     const containerRef = useRef(null);
 
     useEffect(() => {
@@ -47,6 +45,15 @@ function App() {
                 }
             });
 
+
+            // Listen for contact events
+            connect.contact(contact => {
+                contact.onAccepted(() => {
+                    console.log("Call accepted");
+                    handleCallButtonPressed();
+                });
+            });
+
             return () => {
                 if (ccp) {
                     ccp.cleanup();
@@ -54,6 +61,12 @@ function App() {
             };
         }
     }, []);
+
+    // Function to be called when the call button is pressed
+    const handleCallButtonPressed = () => {
+        console.log("Call button pressed! Execute your logic here.");
+        // Add your custom logic here
+    };
 
     return (
         <div>
