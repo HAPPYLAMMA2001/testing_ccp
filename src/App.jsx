@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react';
 
 import "amazon-connect-streams";
-import './App.css'
+import './App.css';
 
 function App() {
     const containerRef = useRef(null);
@@ -45,16 +45,10 @@ function App() {
                 }
             });
 
-
-            // Listen for agent events
-            connect.agent(agent => {
-                agent.onRoutable(() => {
-                    console.log("Agent is routable. Ready to handle a new contact.");
-                });
-
-                agent.onPending(() => {
-                    console.log("Call button pressed! Execute your logic here.");
-                    handleCallButtonPressed();
+            // Listen for contact events
+            connect.contact(contact => {
+                contact.onConnected(() => {
+                    handleCallEstablished();
                 });
             });
 
@@ -66,9 +60,9 @@ function App() {
         }
     }, []);
 
-    // Function to be called when the call button is pressed
-    const handleCallButtonPressed = () => {
-        console.log("Call button pressed! Execute your logic here.");
+    // Dummy function to handle call establishment
+    const handleCallEstablished = () => {
+        console.log("Call has been established!");
         // Add your custom logic here
     };
 
@@ -76,7 +70,7 @@ function App() {
         <div>
             <div ref={containerRef} style={{ width: "400px", height: "600px" }}></div>
         </div>
-    )
+    );
 }
 
-export default App
+export default App;
